@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Event{% endblock %}
+
+{% block body %}
+    <h1>Modifier événements</h1>
+
+    {{ include('event/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+
+{% endblock %}

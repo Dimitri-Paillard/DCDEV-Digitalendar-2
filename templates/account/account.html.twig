@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{ app.user }}{% endblock %}
+
+{% block body %}
+<h1>Hello {{ app.user }}! ✅</h1>
+<h1>Mon compte</h1>
+<hr>
+<ul>
+    <li>Pseudo : pjehan</li>
+    <li>Email : {{ app.user.email }}</li>
+</ul>
+
+<a href="#" class="btn btn-primary">Modifier</a>
+
+<div id="events" class="album py-5">
+
+    <h2>Mes événements</h2>
+
+    <div class="row">
+            {{ render(controller('App\\Controller\\AccountController::event')) }}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+
+{% block header %}
+    <header>
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+            <div class="container d-flex justify-content-between">
+                <a href="{{ path('homepage') }}" class="navbar-brand d-flex align-items-center">
+                    <strong>Digitalendar</strong>
+                </a>
+                <nav class="my-2 my-md-0">
+                    <a class="p-2 text-white" href="{{ path('event_index') }}">Les événements</a>
+                    <a class="p-2 text-white" href="{{ path('event_new') }}">Proposer un événement</a>
+                    <a class="p-2 text-white" href="{{ path('account') }}">Mon compte</a>
+                    {% if app.user %}
+                        <a class="p-2 text-white" href="{{ path('app_logout') }}">Déconnexion</a>
+                    {% else %}
+                        <a class="p-2 text-white" href="{{ path('app_login') }}">Connexion</a>
+                        <a class="p-2 text-white" href="{{ path('app_register') }}">Inscription</a>
+                    {% endif %}
+
+                </nav>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+<main role="main">
+    <div class="py-5 bg-light">
+        <div class="container">
+            {% block body %}
+
+            {% endblock %}
+        </div>
+    </div>
+</main>
+
+{% block footer %}
+    <footer>
+        <div class="container">
+            <p class="float-right">
+                <a href="#">Haut de page</a>
+            </p>
+            <p>&copy; Digitalendar 2019</p>
+        </div>
+    </footer>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
+</body>
+</html>

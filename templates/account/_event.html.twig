@@ -1,0 +1,25 @@
+{% for events  in event %}
+    {% if app.user == events.user or is_granted('ROLE_ADMIN')%}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="{{ asset('uploads/' ~ events.picture) }}" alt="events-picture">
+                <div class="card-body">
+                    <h3 class="card-text">{{ events.title }}</h3>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a href="{{ path('event_show', {'slug': events.slug}) }}" class="btn btn-sm btn-outline-secondary">Voir</a>
+                            {% if app.user == events.user or is_granted('ROLE_ADMIN')%}
+                                <a href="{{ path('event_edit', {'slug': events.slug }) }}" class="btn btn-sm btn-outline-secondary">Modifier</a>
+                            {% else%}
+
+                            {% endif %}
+                        </div>
+                        <small class="text-muted">{{ events.city }} | {{ events.dateStart|date('Y-m-d')}}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else%}
+
+    {% endif %}
+{% endfor %}
