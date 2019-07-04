@@ -19,8 +19,8 @@
                 <nav class="my-2 my-md-0">
                     <a class="p-2 text-white" href="{{ path('event_index') }}">Les événements</a>
                     <a class="p-2 text-white" href="{{ path('event_new') }}">Proposer un événement</a>
-                    <a class="p-2 text-white" href="{{ path('account') }}">Mon compte</a>
                     {% if app.user %}
+                        <a class="p-2 text-white" href="{{ path('account') }}">Mon compte</a>
                         <a class="p-2 text-white" href="{{ path('app_logout') }}">Déconnexion</a>
                     {% else %}
                         <a class="p-2 text-white" href="{{ path('app_login') }}">Connexion</a>
