@@ -14,7 +14,7 @@
 
                         {% endif %}
                     </div>
-                    <small class="text-muted">{{ events.city }} | {{ events.dateStart|date('Y-m-d')}}</small>
+                    <small class="text-muted">{{ events.city }} | {{ events.dateStart|date('d') ~ '-' ~ events.dateEnd|date('d/m/Y') }} </small>
                 </div>
             </div>
         </div>

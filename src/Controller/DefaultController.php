@@ -18,7 +18,6 @@ class DefaultController extends AbstractController
             'controller_name' => 'DefaultController',
         ]);
     }
-
     public function Event()
     {
         $event = $this->getDoctrine()->getRepository(Event::class)->findAll();

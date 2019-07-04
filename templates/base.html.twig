@@ -18,15 +18,20 @@
                 </a>
                 <nav class="my-2 my-md-0">
                     <a class="p-2 text-white" href="{{ path('event_index') }}">Les événements</a>
-                    <a class="p-2 text-white" href="{{ path('event_new') }}">Proposer un événement</a>
                     {% if app.user %}
+                        <a class="p-2 text-white" href="{{ path('event_new') }}">Proposer un événement</a>
                         <a class="p-2 text-white" href="{{ path('account') }}">Mon compte</a>
                         <a class="p-2 text-white" href="{{ path('app_logout') }}">Déconnexion</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a class="p-2 text-white" href="{{ path('easyadmin') }}">Admin</a>
+                        {% else %}
+
+                        {% endif %}
                     {% else %}
+                        <a class="p-2 text-white" href="{{ path('app_login') }}">Proposer un événement</a>
                         <a class="p-2 text-white" href="{{ path('app_login') }}">Connexion</a>
                         <a class="p-2 text-white" href="{{ path('app_register') }}">Inscription</a>
                     {% endif %}
-
                 </nav>
             </div>
         </div>

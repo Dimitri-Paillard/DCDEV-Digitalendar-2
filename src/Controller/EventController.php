@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\Participant;
 use App\Form\EventType;
 use App\Repository\EventRepository;
 use App\Service\Slugger;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -76,6 +78,32 @@ class EventController extends AbstractController
             'event' => $event,
         ]);
     }
+    /**
+     * @Route("/{slug}/add-participant", name="event_add_participant", methods={"GET"})
+     */
+    public function addParticipant(Event $event): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        // Vérifier si l'utilisateur participe déjà
+        $participant = $em->getRepository(Participant::class)->findOneBy(["user" => $this->getUser(), "event" => $event]);
+
+        if ($participant) {
+            $em->remove($participant); // Supprimer la participation
+        } else {
+            // Ajouter la participation
+            $participant = new Participant();
+            $participant->setUser($this->getUser());
+            $participant->setEvent($event);
+            $participant->setCreatedAt(new \DateTime());
+
+            $em->persist($participant);
+        }
+
+        $em->flush();
+
+        return $this->redirectToRoute("event_show", ["slug" => $event->getSlug()]);
+    }
 
     /**
      * @Route("/{slug}/edit", name="event_edit", methods={"GET","POST"})
@@ -96,20 +124,25 @@ class EventController extends AbstractController
 
         return $this->render('event/edit.html.twig', [
             'form' => $form->createView(),
+            'event' => $event
         ]);
     }
-
     /**
      * @Route("/{slug}", name="event_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_USER")
      */
     public function delete(Request $request, Event $event): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$event->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $event->getSlug(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($event);
             $entityManager->flush();
+
         }
 
-        return $this->redirectToRoute('event_index');
+        return $this->redirectToRoute('event_index', [
+            'id' => $event->getId(),
+            'slug' => $event->getSlug(),
+        ]);
     }
 }
