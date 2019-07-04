@@ -15,15 +15,14 @@ require("popper.js");
 require("bootstrap");
 require("select2");
 require("tinymce");
+const ClassicEditor = require( '@ckeditor/ckeditor5-build-classic' );
 
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
 
 
 $(document).ready(function () {
 
-   /* tinymce.init({
-        selector: 'textarea'
-    });*/
+    ClassicEditor.create( document.querySelector( 'textarea' ) );
 
     $('select').select2();
 
