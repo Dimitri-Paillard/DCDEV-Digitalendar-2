@@ -15,7 +15,7 @@
     "@ckeditor/ckeditor5-build-classic": "^12.3.0",
     "bootstrap": "^4.3.1",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "popper.js": "^1.15.0",
     "select2": "^4.0.7",
     "tinymce": "^5.0.9"
