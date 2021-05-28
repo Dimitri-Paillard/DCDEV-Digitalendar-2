@@ -18,7 +18,7 @@
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
     "select2": "^4.0.7",
-    "tinymce": "^5.0.9"
+    "tinymce": "^5.7.1"
   },
   "devDependencies": {
     "@symfony/webpack-encore": "^0.27.0",
